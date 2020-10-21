@@ -74,18 +74,36 @@ public class Date {
 				return -1;
 		}
 	
-	public String LeapYear(Date y) {
-		String result = "";
+	public Boolean LeapYear(Date y) {
 		if(y.year%4!=0) 
-			result += "Ne e visokosna";	
+			return false;	
 		else if(y.year%25 != 0) 
-			result += "Visokosna e";	
+			return true;
 		else if(y.year%16 != 0) 
-			result += "Ne e visokosna";	
+			return false;	
 		else 
-			result += "Visokosna e";	
-		return result;
+			return true;	
 	}
+	
+	public int NumberOfDate(Date d) {
+		for(int i=1; i<=d.month; i++) {
+			if(d.month == 2) {
+				d.day += 28;
+				return d.day;
+			}else if(d.month == 2 && d.LeapYear(d)) {
+				d.day += 29;
+				return d.day;
+			}else {
+				d.day += 31;
+				return d.day;
+			}
+				
+		}
+		return d.day;
+		
+			
+	}
+	
 	public void SecIncrease() {
 		sec += 1;
 	}
