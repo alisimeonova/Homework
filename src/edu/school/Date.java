@@ -1,18 +1,18 @@
 package edu.school;
 
 public class Date {
-	int sec;
-	int min;
-	int hour;
-	int day;
-	int month;
-	int year;
+	private int seconds;
+	private int minutes;
+	private int hour;
+	private int day;
+	private int month;
+	private int year;
 	public Date(int s, int m, int h, int d, int mon, int y) {
 		if(s>=0 && s<=59) {
-			sec = s;
+			seconds = s;
 		}
 		if(m>=0 && m<=59) {
-			min = m;
+			minutes = m;
 		}
 		if(h>=0 && h<=23) {
 			hour = h;
@@ -27,19 +27,19 @@ public class Date {
 		}
 	}// Konstruktorut shte proverqva dali dannite sa validni stoinosti
 	public Date() {
-		sec = 0;
-		min = 0;
+		seconds = 0;
+		minutes = 0;
 		hour = 1;
 		day = 1;
 		month = 1;
 		year = 1;
 	}// Konstruktorut e za dannite da priemat takiva stoinosti purvonachalno i kogato usloviqta v predniq ne sa izpulneni
 	
-	public int getSec() {
-		return sec;
+	public int getSeconds() {
+		return seconds;
 	}
-	public int getMin() {
-		return min;
+	public int getMinutes() {
+		return minutes;
 	}
 	public int getHour() {
 		return hour;
@@ -54,82 +54,135 @@ public class Date {
 		return year;
 	}
 	
+	public void setSeconds(int secondsValue) {
+		seconds = secondsValue;
+	}
+	public void setMinutes(int minutesValue) {
+		minutes = minutesValue;
+	}
+	public void setHour(int hourValue) {
+		hour = hourValue;
+	}
+	public void setDay(int dayValue) {
+		day = dayValue;
+	}
+	public void setMonth(int monthValue) {
+		month = monthValue;
+	}
+	public void setYear(int yearValue) {
+		year = yearValue;
+	}
+	
 	public int compareTo(Date d) {
-		if(year > d.year) {
+		if(year > d.getYear()) {
 			return 1;
 		}
-		else if(year == d.year && month > d.month) {
+		else if(year == d.getYear() && month > d.getMonth()) {
 				return 1;
-			}else if(month == d.month && day > d.day) {
+			}else if(month == d.getMonth() && day > d.getDay()) {
 				return 1;
-			}else if(day == d.day && hour > d.hour) {
+			}else if(day == d.getDay() && hour > d.getHour()) {
 				return 1;
-			}else if(hour == d.hour && min > d.min) {
+			}else if(hour == d.getHour() && minutes > d.getMinutes()) {
 				return 1;
-			}else if(min == d.min && sec > d.sec) {
+			}else if(minutes == d.getMinutes() && seconds > d.getSeconds()) {
 				return 1;
-			}else if(year == d.year && month == d.month && day == d.day && hour == d.hour && min == d.min && sec == d.sec) {
+			}else if(year == d.getYear() && month == d.getMonth() && day == d.getDay() && hour == d.getHour() && minutes == d.getMinutes() && seconds == d.getSeconds()) {
 				return 0;
 			}else
 				return -1;
 		}
 	
-	public Boolean LeapYear(Date y) {
-		if(y.year%4!=0) 
-			return false;	
-		else if(y.year%25 != 0) 
-			return true;
-		else if(y.year%16 != 0) 
-			return false;	
+	public int leapYear() {
+		int leap=0;
+		if(year%4 != 0) 
+			return leap++;	
+		else if(year%25 != 0) 
+			return leap;
+		else if(year%16 != 0) 
+			return leap++;	
 		else 
-			return true;	
+			return leap;	
 	}
 	
-	public int NumberOfDate(Date d) {
-		if(d.month == 1) {
-			return d.day;
-		}else if(d.month == 2) {
-			d.day += 31;
-			return d.day;
-		}else if(d.month == 3) {
-			d.day += 59;
-		}else if(d.month == 3 && d.LeapYear(d)) {
-			d.day += 60;
-			return d.day;
-		}else {
-			for(int i=3; i<=d.month; i++) {
-				if(i%2 == 0)
-					d.day += 30;
-				d.day += 31;
+	public int numberOfDate(Date d) {
+		int br = 0;
+		if(d.getMonth() == 1)
+			return d.getDay();
+		else {
+			for(int i=0; i<=d.getMonth(); i++ ) {
+				if(d.getMonth() == 2 && d.leapYear()==0) {
+					br += 29;
+				}
+				else if(d.getMonth() == 2) {
+					br += 28;
+				}
+				else if(d.getMonth() == 1 || d.getMonth() == 3 || d.getMonth() == 5 || d.getMonth() == 7 || d.getMonth() == 8 || d.getMonth() == 10 || d.getMonth() == 12) {
+					br += 31;
+				}
+				else
+					br += 30;
 			}
-			return d.day;
-		}
-				
-		
-		return d.day;
-		
 			
+			br += d.getDay();
+			return d.getDay();
+				
+	}
+}
+	public int numberOfWeek(Date d) {
+		int week = 0;
+		week = numberOfDate(d) / 7 + 1;
+		return week;
 	}
 	
-	public void SecIncrease() {
-		sec += 1;
-		if(sec == 60) {
-			min += 1;
-			if(min == 60) {
-				hour += 1;
-				if(hour == 24) {
-					day += 1;
-					if(day == 31) {
-						month += 1;
-						if(month == 12) {
-							year += 1;
-						}
+	public void secIncrease(Date d) {
+		d.setSeconds(d.getSeconds() + 1);
+		if(d.getSeconds() >= 60) {
+			d.setSeconds(d.getSeconds() - 60);
+			d.setMinutes(d.getMinutes() + 1);
+			if(d.getMinutes() >= 60) {
+				d.setMinutes(d.getMinutes() - 60);
+				d.setHour(d.getHour() + 1);
+				if(d.getHour() >= 24) {
+					d.setHour(d.getHour() - 24);
+					d.setDay(d.getDay() + 1);
+						if(d.getDay() > 28 && d.getMonth() == 2 && d.leapYear() == 1) {
+							d.setDay(d.getDay() - 28);
+							d.setMonth(d.getMonth() + 1);
+							if(d.getMonth() >= 12) {
+								d.setMonth(d.getMonth() - 12);
+								d.setYear(d.getYear() + 1);
+							}
+						} 
+						else if(d.getDay() > 29 && d.getMonth() == 2 && d.leapYear() == 0) {
+							d.setDay(d.getDay() - 29);
+							d.setMonth(d.getMonth() + 1);
+							if(d.getMonth() >= 12) {
+								d.setMonth(d.getMonth() - 12);
+								d.setYear(d.getYear() + 1);
+							}
+						} 
+						else if(d.getMonth() > 30
+								&& (d.getMonth() == 4 || d.getMonth() == 6 || d.getMonth() == 9 || d.getMonth() == 11)) {
+							d.setDay(d.getDay() - 30);
+							d.setMonth(d.getMonth() + 1);
+							if(d.getMonth() >= 12) {
+								d.setMonth(d.getMonth() - 12);
+								d.setYear(d.getYear() + 1);
+							}
+						} 
+						else if(d.getDay() > 31) {
+							d.setDay(d.getDay() - 31);
+							d.setMonth(d.getMonth() + 1);
+							if(d.getMonth() >= 12) {
+								d.setMonth(d.getMonth() - 12);
+								d.setYear(d.getYear() + 1);
+							}
 					}
-				
 				}
 			}
 		}
-	}
+	}	
 }
 	
 	
