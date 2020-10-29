@@ -1,5 +1,8 @@
 package edu.school;
 
+import java.util.Calendar;
+
+
 public class Date {
 	private int seconds;
 	private int minutes;
@@ -182,7 +185,17 @@ public class Date {
 				}
 			}
 		}
-	}	
+	}
+	public DayOfWeek theDayOfWeek() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(day);
+		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+		return dayOfWeek;
+	}
+	public String ToString()
+	{
+		return hour + ":" + minutes + ":" + seconds + " of " + day + "." + month + "." + year + ", " + theDayOfWeek();  
+	}
 }
 	
 	

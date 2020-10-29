@@ -87,6 +87,7 @@ public class Date_Test {
 		}
 		scan.close();
 	}
+	System.out.println(test.toString(3));
 	
 	/*public static void bubbleSort(Date [] arr) {
 		for(int i = 0; i < arr.length-1; i++)
