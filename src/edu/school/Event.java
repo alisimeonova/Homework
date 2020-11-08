@@ -25,7 +25,7 @@ public class Event {
 	}
 	
 	public String toString() {
-		return name + " " + date;
+		return date.getDay() + "." + date.getMonth() + "." + date.getYear() + ", " + date.getMinutes() + ":" + date.getHour() +  " - " + name;
 	}
 
 }

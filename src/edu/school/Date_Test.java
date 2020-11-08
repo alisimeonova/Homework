@@ -87,17 +87,18 @@ public class Date_Test {
 		}
 		scan.close();
 	}
-	System.out.println(test.toString(3));
+
 	
-	/*public static void bubbleSort(Date [] arr) {
-		for(int i = 0; i < arr.length-1; i++)
-            for(int j = 0; j < arr.length-i-1; j++)
-                if(arr[j] > arr[j+1]){
-                    Date temp = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = temp;
-                }
-		
-	}*/
+	public static void sortDates(Date[] d) {
+		for(int i=0; i<d.length-1; i++) {
+			for(int j=1; j<d.length-i-1; j++) {
+				if(d[j].compareTo2(d[j+1]) == 1) {
+					Date temp = d[j];
+					d[j] = d[j+1];
+					d[j+1] = temp;
+				}
+			}
+		}
+	}
 
 }

@@ -95,6 +95,19 @@ public class Date {
 			}else
 				return -1;
 		}
+	public int compareTo2(Date d) {
+		if(year > d.getYear()) {
+			return 1;
+		}
+		else if(year == d.getYear() && month > d.getMonth()) {
+				return 1;
+			}else if(month == d.getMonth() && day > d.getDay()) {
+				return 1;
+			}else if(year == d.getYear() && month == d.getMonth() && day == d.getDay()) {
+				return 0;
+			}else
+				return -1;
+	}
 	
 	public int leapYear() {
 		int leap=0;
@@ -186,15 +199,10 @@ public class Date {
 			}
 		}
 	}
-	public DayOfWeek theDayOfWeek() {
-		Calendar c = Calendar.getInstance();
-		c.setTime(day);
-		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-		return dayOfWeek;
-	}
+
 	public String ToString()
 	{
-		return hour + ":" + minutes + ":" + seconds + " of " + day + "." + month + "." + year + ", " + theDayOfWeek();  
+		return hour + ":" + minutes + ":" + seconds + " of " + day + "." + month + "." + year ;  
 	}
 }
 	
